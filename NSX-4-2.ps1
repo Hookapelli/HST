@@ -44,7 +44,7 @@ Function fn_RequestNSXToken {
   Write-Host "-------------------------------------------------------"
   Write-Host
 }
-Function fn_VMW-NSX_01409 {   # Determine if Logging is Enabled for each DFW Policy
+<#Function fn_VMW-NSX_01409 {   # Determine if Logging is Enabled for each DFW Policy
   Write-Host "VMW-NSX_01409" -ForegroundColor Green
   $uri = "https://$global:NSXmgr/policy/api/v1/search/query?query=resource_type:SecurityPolicy%20AND%20!id:default-layer2-section"
   $command = "curl -k -s -X GET -H 'Cookie: JSESSIONID=$global:jsessionid' -H 'X-XSRF-TOKEN: $global:xxsrftoken ' $uri --insecure"
@@ -117,7 +117,7 @@ Function fn_VMW-NSX_01421 {   # Aslo Supports VMW-NSX_01525, VMW-NSX_01526, VMW-
   Write-Host "VMW-NSX_01530 - Enforce  Unique Password Change:" $response.max_repeats
   Write-Host "-------------------------------------------------------"
   Write-Host
-}
+} #>
 Function fn_VMW-NSX_01422 {   # Verify NSX Controller is part of a cluster
   Write-Host "VMW-NSX_01422" -ForegroundColor Green
   $uri = "https://$global:NSXmgr/api/v1/cluster/api-virtual-ip"
