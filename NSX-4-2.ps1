@@ -83,7 +83,7 @@ Function fn_VMW-NSX_01413 {   # Determine if SpoofGuard is ENABLED on DFW
   }
   Write-Host "-------------------------------------------------------"
   Write-Host
-}#>
+}
 Function fn_VMW-NSX_01414 {   # Verify Logs are being sent to a central log server 
   Write-Host "VMW-NSX_01414" -ForegroundColor Green
   # Is Syslog Running?
@@ -117,7 +117,7 @@ Function fn_VMW-NSX_01421 {   # Aslo Supports VMW-NSX_01525, VMW-NSX_01526, VMW-
   Write-Host "VMW-NSX_01530 - Enforce  Unique Password Change:" $response.max_repeats
   Write-Host "-------------------------------------------------------"
   Write-Host
-}
+} #>
 Function fn_VMW-NSX_01422 {   # Verify NSX Controller is part of a cluster
   Write-Host "VMW-NSX_01422" -ForegroundColor Green
   $uri = "https://$global:NSXmgr/api/v1/cluster/api-virtual-ip"
