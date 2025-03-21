@@ -1,9 +1,4 @@
 # !!!!!!!!!!!! DON'T FORGET TO CHANGE THE VMW CONTROLL ID !!!!!!!!!!
-Function fn_SetVars {
-    $global:NSXmgr = '192.168.50.4'
-    $global:NSXTAdminUser = 'admin'
-    $global:NSXTAdminPass = 'VMware1!VMware1!'
-  }
 Function fn_VMW-NSX_01409 {   # Determine if Logging is Enabled for each DFW Policy
   Write-Host "VMW-NSX_01409" -ForegroundColor Green
   $uri = "https://$global:NSXmgr/policy/api/v1/search/query?query=resource_type:SecurityPolicy%20AND%20!id:default-layer2-section"
@@ -15,8 +10,13 @@ Function fn_VMW-NSX_01409 {   # Determine if Logging is Enabled for each DFW Pol
     
   }
 }
-
 # CUT BELOW HERE ------------------------
+Function fn_SetVars {
+    $global:NSXmgr = '192.168.50.4'
+    $global:NSXTAdminUser = 'admin'
+    $global:NSXTAdminPass = 'VMware1!VMware1!'
+  }
+  
 Function fn_RequestNSXToken {
   if (!$global:jsessionid) {
     Connect-NsxServer $global:NSXmgr -User $global:NSXTAdminUser -Password $global:NSXTAdminPass
