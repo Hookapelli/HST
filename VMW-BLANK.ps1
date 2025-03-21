@@ -1,3 +1,4 @@
+# !!!!!!!!!!!! DON'T FORGET TO CHANGE THE VMW CONTROLL ID !!!!!!!!!!
 Function fn_SetVars {
     $global:NSXmgr = '192.168.50.4'
     $global:NSXTAdminUser = 'admin'
