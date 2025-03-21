@@ -44,7 +44,7 @@ Function fn_RequestNSXToken {
   Write-Host "-------------------------------------------------------"
   Write-Host
 }
-Function fn_VMW-NSX_01409 {   # Determine if Logging is Enabled for each DFW Policy
+<#Function fn_VMW-NSX_01409 {   # Determine if Logging is Enabled for each DFW Policy
   Write-Host "VMW-NSX_01409" -ForegroundColor Green
   $uri = "https://$global:NSXmgr/policy/api/v1/search/query?query=resource_type:SecurityPolicy%20AND%20!id:default-layer2-section"
   $command = "curl -k -s -X GET -H 'Cookie: JSESSIONID=$global:jsessionid' -H 'X-XSRF-TOKEN: $global:xxsrftoken ' $uri --insecure"
@@ -83,7 +83,7 @@ Function fn_VMW-NSX_01413 {   # Determine if SpoofGuard is ENABLED on DFW
   }
   Write-Host "-------------------------------------------------------"
   Write-Host
-}
+}#>
 Function fn_VMW-NSX_01414 {   # Verify Logs are being sent to a central log server 
   Write-Host "VMW-NSX_01414" -ForegroundColor Green
   # Is Syslog Running?
