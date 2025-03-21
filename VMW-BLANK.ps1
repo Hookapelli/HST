@@ -1,5 +1,4 @@
 
- 
 # CUT BELOW HERE ------------------------
 Function fn_SetVars {
     $global:NSXmgr = '192.168.50.4'
@@ -50,4 +49,4 @@ Function fn_RequestNSXToken {
 }
 fn_SetVars
 fn_RequestNSXToken
-fn_VMW-NSX_TEST
+fn_VMW-NSX_01431
