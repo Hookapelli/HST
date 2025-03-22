@@ -1,16 +1,37 @@
-Function fn_VMW-NSX_01431 {
-  Write-Host "VMW-NSX_01431"  -ForegroundColor Green
+Function fn_VMW-NSX_01437 {
+  Write-Host "VMW-NSX_01437" -ForegroundColor Green
   $uri = "https://$global:NSXmgr/policy/api/v1/infra/tier-0s"
   $command = "curl -k -s -X GET -H 'Cookie: JSESSIONID=$global:jsessionid' -H 'X-XSRF-TOKEN: $global:xxsrftoken ' $uri --insecure"
   $response = Invoke-Expression $command | ConvertFrom-Json
-  if ($response.result_count -eq "0") { Write-Host "No T1 Deployed"} else {
+  if ($response.result_count -eq "0") { Write-Host "No T0 Deployed"} else {
     foreach ($result in $response.results){
       $t0id = $result.id
-      $uri =  "https://$global:NSXmgr/policy/api/v1/infra/domains/default/gateway-policies/Policy_Default_Infra-tier0-$t0id/rules/default_rule"
+      $uri =  "https://$global:NSXmgr/policy/api/v1/infra/tier-0s/$t0id/locale-services"
       $command2 = "curl -k -s -X GET -H 'Cookie: JSESSIONID=$global:jsessionid' -H 'X-XSRF-TOKEN: $global:xxsrftoken ' $uri --insecure"
-      $defaultRule = Invoke-Expression $command2 | ConvertFrom-Json
-      Write-Host $result.display_name" Default Rule is: "$defaultRule.action
+      $t0lss = Invoke-Expression $command2 | ConvertFrom-Json 
+      if ($t0lss.results-ne "0") {
+        foreach ($t0ls in $t0lss.results) {
+         $t0lsid = $t0ls.id
+          $uri =  "https://$global:NSXmgr/policy/api/v1/infra/tier-0s/$t0id/locale-services/$t0lsid/multicast"
+          $command3 = "curl -k -s -X GET -H 'Cookie: JSESSIONID=$global:jsessionid' -H 'X-XSRF-TOKEN: $global:xxsrftoken ' $uri --insecure"
+          $t0mc = Invoke-Expression $command3 | ConvertFrom-Json
+           Write-Host "T0"$result.display_name
+          
 
+
+          $uri =  "https://$global:NSXmgr/policy/api/v1/infra/tier-0s/$t0id/locale-services/$t0lsid/interfaces"
+          $command4 = "curl -k -s -X GET -H 'Cookie: JSESSIONID=$global:jsessionid' -H 'X-XSRF-TOKEN: $global:xxsrftoken ' $uri --insecure"
+          $t0int = Invoke-Expression $command4 | ConvertFrom-Json 
+          foreach ($int in $t0int.results){
+            if (!$int.multicast.enabled) {$intmc="Disabled"} else {
+              $intmc = $int.multicast.enabled
+            }
+            Write-Host "Interface:" $int.id 
+            Write-Host "Multicast Enabled:"$intmc
+            Write-Host
+          }
+        }
+      }
     }
   }
 }
@@ -65,4 +86,4 @@ Function fn_RequestNSXToken {
 }
 fn_SetVars
 fn_RequestNSXToken
-fn_VMW-NSX_01431
+fn_VMW-NSX_01437
