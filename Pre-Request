@@ -1,0 +1,44 @@
+console.log('Pre-request Script from Request start');
+
+// We don't need to do anything if it's GET or x-csrf-token header is explicitly presented
+if (pm.request.method !== 'GET' && !(pm.request.headers.has('x-csrf-token'))) {
+
+  var csrfRequest = pm.request.clone();
+  csrfRequest.method = 'GET';
+  if (pm.request.method === 'POST') {
+    // for POST method usually it is ....<something>Collection in the URL
+    // so we add $top=1 just to quickly get csrf token; 
+    // for PUT, PATCH or DELETE the same URL would be enough,
+    // because it points to the actual entity
+    csrfRequest.url = pm.request.url + '?$top=1';
+  }
+
+  csrfRequest.upsertHeader({
+    key: 'x-csrf-token',
+    value: 'fetch'
+  });
+
+  pm.sendRequest(csrfRequest, function(err, res) {
+    console.log('pm.sendRequest start');
+    if (err) {
+      console.log(err);
+    } else {
+      var csrfToken = res.headers.get('x-csrf-token');
+      if (csrfToken) {
+        console.log('csrfToken fetched:' + csrfToken);
+        pm.request.headers.upsert({
+          key: 'x-csrf-token',
+          value: csrfToken
+        
+        });
+        pm.environment.set('X-XSRF-TOKEN',csrfToken);
+        console.log("CSRF token:", xsrfCookie.value);
+      } else {
+        console.log('No csrf token fetched');
+      }
+    }
+    console.log('pm.sendRequest end');
+  });
+}
+
+console.log('Pre-request Script from Request end');
