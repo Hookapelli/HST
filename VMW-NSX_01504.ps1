@@ -38,6 +38,8 @@ Function fn_VMW-NSX_01504 {
 
           $t0lsid = $t0ls.id
 
+          # Checkin BGP on Each Service
+
           $bgp = Invoke-WebRequest "https://$global:NSXmgr/policy/api/v1/infra/tier-0s/$t0id/locale-services/$t0lsid/bgp" -Method 'GET' -Headers $headers 
           
           $bgpjson = $bgp | ConvertFrom-Json
@@ -74,7 +76,7 @@ Function fn_VMW-NSX_01504 {
 
                 foreach ($bgpnbrsresult in  $bgpnbrsjson.results) {
 
-                  Write-Host "BGP on "$t0.display_name"neighbor"$bgpnbrsresult.neighbor_address"enabled:"$bgpnbrsresult.enabled
+                  Write-Host "BGP on"$t0.display_name"neighbor"$bgpnbrsresult.neighbor_address"enabled:"$bgpnbrsresult.enabled
 
                 }
 
@@ -86,10 +88,44 @@ Function fn_VMW-NSX_01504 {
 
         }
 
+        # Checking OSPF on Each Service
+
+        $ospf = Invoke-WebRequest "https://$global:NSXmgr/policy/api/v1/infra/tier-0s/$t0id/locale-services/$t0lsid/ospf" -Method 'GET' -Headers $headers 
+          
+        $ospfjson = $ospf | ConvertFrom-Json
+
+        # Check if status is OK (200)
+
+        if ($ospf.StatusCode -ne 200) {
+
+          Write-Host "Failed to retrieve OSPF Services"
+
+        } else {if ($ospfjson.enabled -eq "true") {
+
+          $ospfareas = Invoke-WebRequest "https://$global:NSXmgr/policy/api/v1/infra/tier-0s/$t0id/locale-services/$t0lsid/ospf/areas" -Method 'GET' -Headers $headers 
+
+          $ospfareasjson = $ospfareas | ConvertFrom-Json
+
+          # Check if status is OK (200)
+
+          if ($ospfareas.StatusCode -ne 200) {
+
+            Write-Host "Failed to retrieve OSPF Services"
+
+          } else {
+
+            if ($ospfareasjson.result_count -gt "0") {
+
+              foreach ($ospfareasresults in $ospfareasjson.results) {
+
+                Write-Host "OSPF on "$t0.display_name"Aria"$ospfareasresults.area_id"enabled"
+            
+              }
+            }
+          }
+        }
       }
-
     }
-
   }
-
-}                      
+}  
+}
