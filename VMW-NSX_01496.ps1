@@ -1,5 +1,5 @@
-Function fn_VMW-NSX_01495 {
-  Write-Host "VMW-NSX_01495" -ForegroundColor Green
+Function fn_VMW-NSX_01496 {
+  Write-Host "VMW-NSX_01496" -ForegroundColor Green
 
 # Set the Headder for all API calls
 $headers = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
