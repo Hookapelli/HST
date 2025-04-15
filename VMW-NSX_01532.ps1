@@ -6,8 +6,6 @@ Function fn_VMW-NSX_01532 {
   $headers.Add("X-XSRF-TOKEN", $global:xxsrftoken)
   $headers.Add("Cookie", "JSESSIONID=$global:jsessionid")
 
-
-  # Check if status is OK (200)
   try { 
 
     $t1s = Invoke-WebRequest "https://$global:NSXmgr/policy/api/v1/infra/tier-1s" -Method 'GET' -Headers $headers  
@@ -17,7 +15,9 @@ Function fn_VMW-NSX_01532 {
       Write-Host "No Tier-1 Found"
 
     }
-      if ($t1s.StatusCode -ne 200) {
+
+ # Check if status is OK (200)
+  if ($t1s.StatusCode -ne 200) {
 
       Write-Host "Failed to retrieve Tier-1 Gateways"
   }
