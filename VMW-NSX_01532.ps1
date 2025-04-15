@@ -56,7 +56,7 @@ Function fn_VMW-NSX_01532 {
       
               Write-Host "      DHCP Server Address:" $dhcpinfojson.server_address
       
-              Write-Host "      DHCP Addresses:"$dhcpinfojson.server_addresses # Shoild Match Input File Data
+              Write-Host "      DHCP Addresses:"$dhcpinfojson.server_addresses # Should Match Input File Data
           } 
       
         } else {
