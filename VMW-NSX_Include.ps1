@@ -51,4 +51,4 @@ Function fn_RequestNSXToken {
 }
 fn_SetVars
 fn_RequestNSXToken
-fn_VMW-NSX_
+fn_VMW-NSX_XXXXXX
