@@ -17,6 +17,7 @@ Function fn_VMW-NSX_01532 {
     }
 
  # Check if status is OK (200)
+ 
   if ($t1s.StatusCode -ne 200) {
 
       Write-Host "Failed to retrieve Tier-1 Gateways"
