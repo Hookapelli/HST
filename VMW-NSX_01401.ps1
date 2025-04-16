@@ -46,6 +46,8 @@ Function fn_VMW-NSX_01401 {
 
     Write-Host "  Service Name:"$ntpjson.service_name 
 
-    Write-Host "  Servers:"$ntpjson.service_properties.servers
+    Write-Host "  Number of NTP Servers:"$ntp.result_count # Min of 2 servers resommended
+    
+    Write-Host "  Servers:"$ntpjson.service_properties.servers # Should match input from workbook
 
 }  
