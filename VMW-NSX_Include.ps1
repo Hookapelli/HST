@@ -9,7 +9,7 @@ Modify the end of this script to call each function in the script.
 #>
 
 Function fn_SetVars {
-  $global:NSXmgr = 'lm-mgt-paris.corp.vmbeans.com'
+  $global:NSXmgr = 'nsx-l-01a.corp.local'
   $global:NSXTAdminUser = 'admin'
   $global:NSXTAdminPass = 'VMware1!VMware1!'
 }
