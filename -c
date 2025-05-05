@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+set-cookie: JSESSIONID=37F2662B7B82A7F721C14A78BFA23A44; Path=/; Secure; HttpOnly; SameSite=Lax
+x-xsrf-token: e6c38831-5e20-49fd-974f-958d15956a2f
+cache-control: no-cache, no-store, max-age=0, must-revalidate
+pragma: no-cache
+expires: 0
+x-xss-protection: 1; mode=block
+x-frame-options: SAMEORIGIN
+x-content-type-options: nosniff
+content-type: application/json
+content-length: 107
+date: Fri, 18 Apr 2025 01:07:02 GMT
+strict-transport-security: max-age=31536000; includeSubDomains
+content-security-policy: frame-src 'self' blob:; frame-ancestors 'self'  
+server: envoy
+
